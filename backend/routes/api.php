@@ -2,6 +2,16 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\FoodController;
+use App\Http\Controllers\API\MealController;
+use App\Http\Controllers\API\RoleController;
+use App\Http\Controllers\API\SportController;
+use App\Http\Controllers\API\RecipeController;
+use App\Http\Controllers\API\ContactController;
+use App\Http\Controllers\API\ConceiveController;
+use App\Http\Controllers\API\IntegrateController;
+use App\Http\Controllers\API\NewspaperController;
+use App\Http\Controllers\API\WaterconsumptionController;
 
 /*
 |--------------------------------------------------------------------------
