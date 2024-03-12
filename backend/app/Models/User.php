@@ -27,7 +27,8 @@ class User extends Authenticatable
         'weight',
         'objective',
         'activity',
-        'caloriesPerDay'
+        'caloriesPerDay',
+        'role_id',
     ];
 
     /**

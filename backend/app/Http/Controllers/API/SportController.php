@@ -13,7 +13,9 @@ class SportController extends Controller
      */
     public function index()
     {
-        //
+        $sports = SPORT::all();
+
+        return response()->json($sports);
     }
 
     /**
@@ -21,7 +23,18 @@ class SportController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nameSports' => 'required|max:100',
+            'met' => 'required|numeric|between:0,20',
+
+        ]);
+
+        $sport = SPORT::create($request->all());
+
+        return response()->json([
+            'status' => 'Création d\'aliment avec succès',
+            'data' => $sport,
+        ]);
     }
 
     /**
@@ -29,7 +42,7 @@ class SportController extends Controller
      */
     public function show(Sport $sport)
     {
-        //
+        return response()->json($sport);
     }
 
     /**
@@ -37,7 +50,18 @@ class SportController extends Controller
      */
     public function update(Request $request, Sport $sport)
     {
-        //
+        $request->validate([
+            'nameSports' => 'required|max:100',
+            'met' => 'required|numeric|between:0,20',
+
+        ]);
+
+        $sport->update($request->all());
+
+        return response()->json([
+            'status' => 'Mise à jour avec succès',
+
+        ]);
     }
 
     /**
@@ -45,6 +69,10 @@ class SportController extends Controller
      */
     public function destroy(Sport $sport)
     {
-        //
+        $sport->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

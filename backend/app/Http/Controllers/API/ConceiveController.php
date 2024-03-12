@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Conceive;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class ConceiveController extends Controller
 {
@@ -13,7 +14,10 @@ class ConceiveController extends Controller
      */
     public function index()
     {
-        //
+
+        $conceives = Conceive::all();
+
+        return response()->json($conceives);
     }
 
     /**
@@ -21,7 +25,16 @@ class ConceiveController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'portion' => 'required|numeric|between:0,100',
+        ]);
+
+        $conceive = Conceive::create($request->all());
+
+        return response()->json([
+            'status' => 'Création de la portion avec succès',
+            'data' => $conceive,
+        ]);
     }
 
     /**
@@ -29,7 +42,7 @@ class ConceiveController extends Controller
      */
     public function show(Conceive $conceive)
     {
-        //
+        return response()->json($conceive);
     }
 
     /**
@@ -37,7 +50,15 @@ class ConceiveController extends Controller
      */
     public function update(Request $request, Conceive $conceive)
     {
-        //
+        $request->validate([
+            'portion' => 'required|numeric|between:0,100',
+        ]);
+
+        $conceive->update($request->all());
+
+        return response()->json([
+            'status' => 'Mise à jour effectuée',
+        ]);
     }
 
     /**
@@ -45,6 +66,10 @@ class ConceiveController extends Controller
      */
     public function destroy(Conceive $conceive)
     {
-        //
+        $conceive->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

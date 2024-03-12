@@ -13,7 +13,9 @@ class ContactController extends Controller
      */
     public function index()
     {
-        //
+        $contact = Contact::all();
+
+        return response()->json($contact);
     }
 
     /**
@@ -21,7 +23,19 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'lastname' => 'required|max:160',
+            'firstname' => 'required|max:160',
+            'emailContact' => 'required|max:255',
+            'message' => 'required|longText',
+        ]);
+
+        $contact = Contact::create($request->all());
+
+        return response()->json([
+            'status' => 'Création d\'aliment avec succès',
+            'data' => $contact,
+        ]);
     }
 
     /**
@@ -29,7 +43,7 @@ class ContactController extends Controller
      */
     public function show(Contact $contact)
     {
-        //
+        return response()->json($contact);
     }
 
     /**
@@ -37,7 +51,19 @@ class ContactController extends Controller
      */
     public function update(Request $request, Contact $contact)
     {
-        //
+        $request->validate([
+            'lastname' => 'required|max:160',
+            'firstname' => 'required|max:160',
+            'emailContact' => 'required|max:255',
+            'message' => 'required|longText',
+        ]);
+
+        $contact->update($request->all());
+
+        return response()->json([
+            'status' => 'Création du contact avec succès',
+            'data' => $contact,
+        ]);
     }
 
     /**
@@ -45,6 +71,10 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

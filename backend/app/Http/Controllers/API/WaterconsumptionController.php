@@ -13,7 +13,9 @@ class WaterconsumptionController extends Controller
      */
     public function index()
     {
-        //
+        $waterconsumption = WaterCONSUMPTION::all();
+
+        return response()->json($waterconsumption);
     }
 
     /**
@@ -21,7 +23,16 @@ class WaterconsumptionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'glassWater' => 'required|numeric|between:0,20',
+        ]);
+
+        $waterconsumption = Waterconsumption::create($request->all());
+
+        return response()->json([
+            'status' => 'Création de consommation d\'eau avec succès',
+            'data' => $waterconsumption,
+        ]);
     }
 
     /**
@@ -29,7 +40,7 @@ class WaterconsumptionController extends Controller
      */
     public function show(Waterconsumption $waterconsumption)
     {
-        //
+        return response()->json($waterconsumption);
     }
 
     /**
@@ -37,7 +48,16 @@ class WaterconsumptionController extends Controller
      */
     public function update(Request $request, Waterconsumption $waterconsumption)
     {
-        //
+        $request->validate([
+            'glassWater' => 'required|numeric|between:0,20',
+        ]);
+
+        $waterconsumption->update($request->all());
+
+        return response()->json([
+            'status' => 'Création de consommation d\'eau avec succès',
+            'data' => $waterconsumption,
+        ]);
     }
 
     /**
@@ -45,6 +65,10 @@ class WaterconsumptionController extends Controller
      */
     public function destroy(Waterconsumption $waterconsumption)
     {
-        //
+        $waterconsumption->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

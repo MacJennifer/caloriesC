@@ -13,7 +13,9 @@ class RecipeController extends Controller
      */
     public function index()
     {
-        //
+        $recipes = Recipe::all();
+
+        return response()->json($recipes);
     }
 
     /**
@@ -21,7 +23,18 @@ class RecipeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nameRecipes' => 'required|max:100',
+
+
+        ]);
+
+        $recipe = Recipe::create($request->all());
+
+        return response()->json([
+            'status' => 'Création d\'une recette avec succès',
+            'data' => $recipe,
+        ]);
     }
 
     /**
@@ -29,7 +42,7 @@ class RecipeController extends Controller
      */
     public function show(Recipe $recipe)
     {
-        //
+        return response()->json($recipe);
     }
 
     /**
@@ -37,7 +50,17 @@ class RecipeController extends Controller
      */
     public function update(Request $request, Recipe $recipe)
     {
-        //
+        $request->validate([
+            'nameRecipes' => 'required|max:100',
+
+        ]);
+
+        $recipe->update($request->all());
+
+        return response()->json([
+            'status' => 'Mise à jour avec succès',
+            'data' => $recipe,
+        ]);
     }
 
     /**
@@ -45,6 +68,10 @@ class RecipeController extends Controller
      */
     public function destroy(Recipe $recipe)
     {
-        //
+        $recipe->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

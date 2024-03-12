@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Food;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 
 class FoodController extends Controller
 {
@@ -13,7 +14,9 @@ class FoodController extends Controller
      */
     public function index()
     {
+
         $foods = Food::all();
+
         return response()->json($foods);
     }
 

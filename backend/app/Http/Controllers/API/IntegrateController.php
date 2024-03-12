@@ -13,7 +13,9 @@ class IntegrateController extends Controller
      */
     public function index()
     {
-        //
+        $integrate = Integrate::all();
+
+        return response()->json($integrate);
     }
 
     /**
@@ -21,7 +23,17 @@ class IntegrateController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'quantity' => 'required|numeric|between:0,1000',
+
+        ]);
+
+        $integrate = Integrate::create($request->all());
+
+        return response()->json([
+            'status' => 'Création d\'une quantité avec succès',
+            'data' => $integrate,
+        ]);
     }
 
     /**
@@ -29,7 +41,7 @@ class IntegrateController extends Controller
      */
     public function show(Integrate $integrate)
     {
-        //
+        return response()->json($integrate);
     }
 
     /**
@@ -37,7 +49,17 @@ class IntegrateController extends Controller
      */
     public function update(Request $request, Integrate $integrate)
     {
-        //
+        $request->validate([
+            'quantity' => 'required|numeric|between:0,1000',
+
+        ]);
+
+        $integrate->update($request->all());
+
+        return response()->json([
+            'status' => 'Mise à jour avec succès',
+            'data' => $integrate,
+        ]);
     }
 
     /**
@@ -45,6 +67,10 @@ class IntegrateController extends Controller
      */
     public function destroy(Integrate $integrate)
     {
-        //
+        $integrate->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

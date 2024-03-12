@@ -13,7 +13,9 @@ class MealController extends Controller
      */
     public function index()
     {
-        //
+        $meals = Meal::all();
+
+        return response()->json($meals);
     }
 
     /**
@@ -21,7 +23,16 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'calories' => 'required|integer',
+        ]);
+
+        $meal = Meal::create($request->all());
+
+        return response()->json([
+            'status' => 'Création d\'un repas avec succès',
+            'data' => $meal,
+        ]);
     }
 
     /**
@@ -29,7 +40,7 @@ class MealController extends Controller
      */
     public function show(Meal $meal)
     {
-        //
+        return response()->json($meal);
     }
 
     /**
@@ -37,7 +48,15 @@ class MealController extends Controller
      */
     public function update(Request $request, Meal $meal)
     {
-        //
+        $request->validate([
+            'calories' => 'required|integer',
+        ]);
+
+        $meal->update($request->all());
+
+        return response()->json([
+            'status' => 'Mise à jour du repas avec succès',
+        ]);
     }
 
     /**
@@ -45,6 +64,10 @@ class MealController extends Controller
      */
     public function destroy(Meal $meal)
     {
-        //
+        $meal->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }

@@ -13,7 +13,9 @@ class NewspaperController extends Controller
      */
     public function index()
     {
-        //
+        $newsPapers = Newspaper::all();
+
+        return response()->json($newsPapers);
     }
 
     /**
@@ -21,7 +23,19 @@ class NewspaperController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'numberWeek' => 'required|integer',
+            'totalCalories' => 'required|integer',
+
+
+        ]);
+
+        $newspaper = Newspaper::create($request->all());
+
+        return response()->json([
+            'status' => 'Création d\'un journal avec succès',
+            'data' => $newspaper,
+        ]);
     }
 
     /**
@@ -29,7 +43,7 @@ class NewspaperController extends Controller
      */
     public function show(Newspaper $newspaper)
     {
-        //
+        return response()->json($newspaper);
     }
 
     /**
@@ -37,7 +51,19 @@ class NewspaperController extends Controller
      */
     public function update(Request $request, Newspaper $newspaper)
     {
-        //
+        $request->validate([
+            'numberWeek' => 'required|integer',
+            'totalCalories' => 'required|integer',
+
+
+        ]);
+
+        $newspaper->update($request->all());
+
+        return response()->json([
+            'status' => 'Mise à jour du journal avec succès',
+            'data' => $newspaper,
+        ]);
     }
 
     /**
@@ -45,6 +71,10 @@ class NewspaperController extends Controller
      */
     public function destroy(Newspaper $newspaper)
     {
-        //
+        $newspaper->delete();
+
+        return response()->json([
+            'status' => 'Supprimé avec succès'
+        ]);
     }
 }
