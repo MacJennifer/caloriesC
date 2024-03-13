@@ -64,6 +64,8 @@ class AuthController extends Controller
             'size' => 'required|integer|min:0|max:300',
             'weight' => 'required|numeric|between:45,200',
             'objective' => 'required|string|in: perte de poids, stabilité du poids',
+            'activity' => 'required|string|in: active, peu active, pas active',
+            'caloriesPerDay' => 'required|integer|',
 
         ]);
 
@@ -76,6 +78,7 @@ class AuthController extends Controller
             'size' => $request->size,
             'weight' => $request->weight,
             'objective' => $request->objective,
+            'caloriesPerDay' => $request->caloriesPerDay,
             'role_id' => 1,
         ]);
 

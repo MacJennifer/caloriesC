@@ -9,4 +9,9 @@ class Sport extends Model
 {
     use HasFactory;
     protected $fillable = ['nameSports', 'met', 'user_id'];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

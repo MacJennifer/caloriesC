@@ -4,7 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Food;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
 use App\Http\Controllers\Controller;
 
 class FoodController extends Controller
@@ -25,6 +25,7 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'nameFoods' => 'required|max:60',
             'fats' => 'required|numeric|between:0,10',
@@ -57,8 +58,10 @@ class FoodController extends Controller
      */
     public function update(Request $request, Food $food)
     {
+
         $request->validate([
-            'nameFoods' => 'required|max:60',
+
+            'nameFoods' => 'required|string|max:60',
             'fats' => 'required|numeric|between:0,10',
             'carbohydrates' => 'required|numeric|between:0,10',
             'fibers' => 'required|numeric|between:0,10',
@@ -68,10 +71,12 @@ class FoodController extends Controller
 
         ]);
 
+
         $food->update($request->all());
 
         return response()->json([
-            'status' => 'mise à jour effectuée'
+            'status' => 'mise à jour effectuée',
+            'data' => $food,
         ]);
     }
 

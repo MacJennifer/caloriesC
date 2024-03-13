@@ -10,4 +10,17 @@ class Food extends Model
     use HasFactory;
     protected $table = 'foods';
     protected $fillable = ['nameFoods', 'fats', 'carbohydrates', 'fibers', 'proteins', 'salts', 'quantityDefault', 'user_id'];
+
+    public function integrate()
+    {
+        return $this->belongsToMany(Integrate::class);
+    }
+    public function conceive()
+    {
+        return $this->belongsToMany(Conceive::class);
+    }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -9,4 +9,14 @@ class Waterconsumption extends Model
 {
     use HasFactory;
     protected $fillable = ['glassWater', 'user_id'];
+
+    public function meals()
+    {
+        return $this->hasMany(Meal::class);
+    }
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

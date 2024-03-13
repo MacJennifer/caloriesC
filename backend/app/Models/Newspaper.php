@@ -9,4 +9,9 @@ class Newspaper extends Model
 {
     use HasFactory;
     protected $fillable = ['numberWeek', 'totalCalories', 'meal_id', 'user_id'];
+
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -8,5 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Recipe extends Model
 {
     use HasFactory;
-    protected $fillable = ['portion', 'food_id', 'recipe_id'];
+    protected $fillable = ['nameRecipes', 'user_id'];
+
+    public function conceive()
+    {
+        return $this->belongsToMany(Conceive::class);
+    }
+    public function users()
+    {
+        return $this->hasMany(User::class);
+    }
 }

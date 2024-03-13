@@ -26,7 +26,7 @@ class ConceiveController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'portion' => 'required|numeric|between:0,100',
+            'portion' => 'required|integer',
         ]);
 
         $conceive = Conceive::create($request->all());
@@ -51,7 +51,7 @@ class ConceiveController extends Controller
     public function update(Request $request, Conceive $conceive)
     {
         $request->validate([
-            'portion' => 'required|numeric|between:0,100',
+            'portion' => 'required|integer',
         ]);
 
         $conceive->update($request->all());

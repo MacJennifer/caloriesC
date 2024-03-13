@@ -27,7 +27,7 @@ class ContactController extends Controller
             'lastname' => 'required|max:160',
             'firstname' => 'required|max:160',
             'emailContact' => 'required|max:255',
-            'message' => 'required|longText',
+            'message' => 'required|string|max:65535',
         ]);
 
         $contact = Contact::create($request->all());
@@ -55,7 +55,7 @@ class ContactController extends Controller
             'lastname' => 'required|max:160',
             'firstname' => 'required|max:160',
             'emailContact' => 'required|max:255',
-            'message' => 'required|longText',
+            'message' => 'required|string|max:65535',
         ]);
 
         $contact->update($request->all());
