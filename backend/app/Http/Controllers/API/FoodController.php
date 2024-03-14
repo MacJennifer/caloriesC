@@ -25,6 +25,8 @@ class FoodController extends Controller
      */
     public function store(Request $request)
     {
+        /** Put quantiyDefault 100 default */
+        $request->merge(['quantityDefault' => 100]);
 
         $request->validate([
             'nameFoods' => 'required|max:60',
@@ -33,8 +35,6 @@ class FoodController extends Controller
             'fibers' => 'required|numeric|between:0,10',
             'proteins' => 'required|numeric|between:0,10',
             'salts' => 'required|numeric|between:0,10',
-            'quantityDefault' => 'required|integer',
-
         ]);
 
         $food = Food::create($request->all());
@@ -67,7 +67,6 @@ class FoodController extends Controller
             'fibers' => 'required|numeric|between:0,10',
             'proteins' => 'required|numeric|between:0,10',
             'salts' => 'required|numeric|between:0,10',
-            'quantityDefault' => 'required|integer',
 
         ]);
 
