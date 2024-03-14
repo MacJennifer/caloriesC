@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('sexe');
             $table->integer('age');
-            $table->decimal('size');
+            $table->integer('size');
             $table->decimal('weight');
             $table->string('objective');
             $table->string('activity');

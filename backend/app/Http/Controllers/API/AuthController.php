@@ -55,16 +55,17 @@ class AuthController extends Controller
     }
     public function register(Request $request)
     {
+
         $request->validate([
             'pseudo' => 'required|string|max:50',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:6',
-            'sexe' => 'required|string|in: homme, femme',
+            'sexe' => 'required|string|in:homme,femme',
             'age' => 'required|integer|min:15|max:70',
             'size' => 'required|integer|min:0|max:300',
             'weight' => 'required|numeric|between:45,200',
-            'objective' => 'required|string|in: perte de poids, stabilité du poids',
-            'activity' => 'required|string|in: active, peu active, pas active',
+            'objective' => 'required|string|in:perte de poids, stabilité du poids',
+            'activity' => 'required|string|in:active,peu active,pas active',
             'caloriesPerDay' => 'required|integer|',
 
         ]);
@@ -78,6 +79,7 @@ class AuthController extends Controller
             'size' => $request->size,
             'weight' => $request->weight,
             'objective' => $request->objective,
+            'activity' => $request->activity,
             'caloriesPerDay' => $request->caloriesPerDay,
             'role_id' => 1,
         ]);
