@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Sport;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class SportController extends Controller
 {
@@ -23,6 +24,7 @@ class SportController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'nameSports' => 'required|max:100',
             'met' => 'required|numeric|between:0,20',
