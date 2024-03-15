@@ -4,8 +4,9 @@ namespace App\Http\Controllers\API;
 
 use App\Models\Food;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\Controller;
+
 
 class FoodController extends Controller
 {
@@ -26,7 +27,8 @@ class FoodController extends Controller
     public function store(Request $request)
     {
         /** Put quantiyDefault 100 default */
-        $request->merge(['quantityDefault' => 100]);
+        // dd(Auth::user()->id);
+        $request->merge(['quantityDefault' => 100, 'user_id' => Auth::user()->id]);
 
         $request->validate([
             'nameFoods' => 'required|max:60',

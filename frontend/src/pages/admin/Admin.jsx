@@ -3,13 +3,14 @@ import HeaderAdmin from "../components/admin/HeaderAdmin";
 import SiderBarAdmin from "../components/admin/SideBarAdmin";
 const Admin = () => {
   return (
-    <div className="containerAdmin">
-      <div>
-        <h1>Page Admin</h1>
-        <HeaderAdmin />
-      </div>
+    <div className="containerAdminAll">
+      <div className="containerAdmin">
+        <div>
+          <HeaderAdmin />
+        </div>
 
-      <SiderBarAdmin />
+        <SiderBarAdmin />
+      </div>
     </div>
   );
 };

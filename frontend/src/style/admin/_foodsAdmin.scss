@@ -1,0 +1,9 @@
+.containerFoodSideBar {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+
+  .containerSideBarAdmin {
+    width: 20%;
+  }
+}

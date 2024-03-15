@@ -1,3 +1,15 @@
 .containerHeaderAdmin {
-  background-color: red;
+  background-color: #002b5e;
+  width: 100%;
+  display: flex;
+  margin: auto;
+  justify-content: center;
+  align-items: center;
+
+  .imgAdmin {
+    max-width: 150px;
+    height: 150px;
+    display: flex;
+    object-fit: cover;
+  }
 }
