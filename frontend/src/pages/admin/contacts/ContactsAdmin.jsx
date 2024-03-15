@@ -3,30 +3,31 @@ import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
 import HeaderAdmin from "../../components/admin/HeaderAdmin";
 import Sidebar from "../../components/admin/SideBarAdmin";
+
 import ButtonDelete from "../../components/admin/buttons/ButtonDeleteAdmin";
 
-const UsersAdmin = () => {
-  const [users, setUsers] = useState([]);
+const ContactsAdmin = () => {
+  const [contacts, setContacts] = useState([]);
 
   useEffect(() => {
-    const fetchUsers = async () => {
+    const fetchContacts = async () => {
       try {
-        const usersResponse = await axios.get(
-          "http://127.0.0.1:8000/api/users"
+        const sportsResponse = await axios.get(
+          "http://127.0.0.1:8000/api/contacts"
         );
-        setUsers(usersResponse.data);
+        setContacts(sportsResponse.data);
       } catch (error) {
         console.error("Erreur lors de la récupération des données :", error);
       }
     };
-    fetchUsers();
+    fetchContacts();
   }, []);
 
-  const handleDelete = async (userId) => {
+  const handleDelete = async (contactId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/users/${userId}`);
-      // Supprimer l'utilisateur
-      setUsers(users.filter((user) => user.id !== userId));
+      await axios.delete(`http://localhost:8000/api/contacts/${contactId}`);
+      // Supprimer le message
+      setContacts(contacts.filter((contact) => contact.id !== contactId));
     } catch (error) {
       console.error("Error deleting message:", error);
     }
@@ -41,13 +42,15 @@ const UsersAdmin = () => {
           </div>
 
           <div className="row">
-            {users.map((user) => (
-              <div className="col-md-3" key={user.id}>
+            {contacts.map((contact) => (
+              <div className="col-md-3" key={contact.id}>
                 <Card className="mb-4">
                   <Card.Body>
-                    <p>Pseudo : {user.pseudo}</p>
-                    <p>Email : {user.email}</p>
-                    <ButtonDelete onClick={() => handleDelete(user.id)} />
+                    <p>Nom : {contact.lastname}</p>
+                    <p>Prénom : {contact.firstname}</p>
+                    <p>Email : {contact.emailContact}</p>
+                    <p>Message : {contact.message}</p>
+                    <ButtonDelete onClick={() => handleDelete(contact.id)} />
                   </Card.Body>
                 </Card>
               </div>
@@ -59,4 +62,4 @@ const UsersAdmin = () => {
   );
 };
 
-export default UsersAdmin;
+export default ContactsAdmin;
