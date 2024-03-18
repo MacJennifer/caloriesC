@@ -53,6 +53,41 @@ class AuthController extends Controller
             ]);
         }
     }
+    public function calculCaloriesPerDay($sexe, $age, $size, $weight, $activity, $objective)
+    {
+
+        if ($objective === 'perte de poids') {
+            if ($sexe === 'homme') {
+                $baseCalories = 66.50 + (13.75 * $weight) + (5 * $size) - (6.77 * $age) - 500;
+            } else {
+                $baseCalories = 655.1 + (9.56 * $weight) + (1.85 * $size) - (4.67 * $age) - 500;
+            }
+        }
+        if ($objective === 'stabilite du poids') {
+            if ($sexe === 'homme') {
+                $baseCalories = 66.50 + (13.75 * $weight) + (5 * $size) - (6.77 * $age);
+            } else {
+                $baseCalories = 655.1 + (9.56 * $weight) + (1.85 * $size) - (4.67 * $age);
+            }
+        }
+
+
+        // level activity
+        switch ($activity) {
+            case 'active':
+                $baseCalories *= 1.725;
+                break;
+            case 'peu active':
+                $baseCalories *= 1.375;
+                break;
+            case 'pas active':
+                $baseCalories *= 1.2;
+                break;
+        }
+        // dd($baseCalories);
+        return $baseCalories;
+    }
+
     public function register(Request $request)
     {
 
@@ -64,11 +99,18 @@ class AuthController extends Controller
             'age' => 'required|integer|min:15|max:70',
             'size' => 'required|integer|min:0|max:300',
             'weight' => 'required|numeric|between:45,200',
-            'objective' => 'required|string|in:perte de poids, stabilité du poids',
+            'objective' => 'required|string|in:perte de poids,stabilite du poids',
             'activity' => 'required|string|in:active,peu active,pas active',
-            'caloriesPerDay' => 'required|integer|',
 
         ]);
+        $caloriesPerDay = $this->calculCaloriesPerDay(
+            $request->sexe,
+            $request->age,
+            $request->size,
+            $request->weight,
+            $request->activity,
+            $request->objective
+        );
 
         $user = User::create([
             'pseudo' => $request->pseudo,
@@ -80,7 +122,7 @@ class AuthController extends Controller
             'weight' => $request->weight,
             'objective' => $request->objective,
             'activity' => $request->activity,
-            'caloriesPerDay' => $request->caloriesPerDay,
+            'caloriesPerDay' => $caloriesPerDay,
             'role_id' => 1,
         ]);
 
