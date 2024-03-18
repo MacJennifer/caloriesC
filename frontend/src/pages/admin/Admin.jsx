@@ -7,9 +7,10 @@ const Admin = () => {
       <div className="containerAdmin">
         <div>
           <HeaderAdmin />
+          <div className="containerSideBarAdmin">
+            <SiderBarAdmin />
+          </div>
         </div>
-
-        <SiderBarAdmin />
       </div>
     </div>
   );

@@ -12,12 +12,17 @@ import EditSportAdmin from "./pages/admin/sports/EditSportAdmin";
 import SportsAdmin from "./pages/admin/sports/SportsAdmin";
 import UsersAdmin from "./pages/admin/users/UsersAdmin";
 import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
 function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/" element={<Login />} />
+        <Route path="*" element={<Login />} />
+
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/contacts" element={<ContactsAdmin />} />
         <Route path="/admin/users" element={<UsersAdmin />} />

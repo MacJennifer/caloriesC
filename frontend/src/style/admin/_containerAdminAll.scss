@@ -3,7 +3,11 @@ body {
 }
 
 .containerAdminAll {
-  width: 1200px;
+  max-width: 1200px;
   margin: auto;
+  display: flex;
   background-color: #ffffff;
+}
+.containerSideBarAdmin {
+  width: 20%;
 }

@@ -7,8 +7,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import { Controller, useForm } from "react-hook-form";
 import { AiOutlineEye, AiTwotoneEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
-
+import "../../../style/auth.scss";
 import auth from "../../services/token";
+import HeaderAuth from "./HeaderAuth";
 
 function LoginForm() {
   document.title = "Connexion au site";
@@ -48,6 +49,7 @@ function LoginForm() {
 
   return (
     <div className="containerLogin">
+      <HeaderAuth />
       <div className="formLogin">
         <Card.Body>
           <Card.Title className="titleLogin">Connexion</Card.Title>

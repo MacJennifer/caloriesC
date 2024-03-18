@@ -36,7 +36,7 @@ const ContactsAdmin = () => {
     <div className="containerAdminAll">
       <div className="containerAdmin">
         <HeaderAdmin />
-        <div className="containerSportsSideBar">
+        <div className="containerFoodSideBar">
           <div className="containerSideBarAdmin">
             <Sidebar />
           </div>

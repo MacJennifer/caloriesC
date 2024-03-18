@@ -1,0 +1,19 @@
+.containerHeaderAuth {
+  max-width: 1000px;
+  background-color: #002b5e;
+
+  .containerTitle {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+
+    .imgAdmin {
+      max-width: 100%;
+      height: auto;
+      border: 2px solid red;
+    }
+  }
+}

@@ -1,9 +1,18 @@
 .containerFoodSideBar {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   width: 100%;
+  border: 2px solid red;
 
-  .containerSideBarAdmin {
-    width: 20%;
+  // .containerSideBarAdmin {
+  //   width: 100%;
+  // }
+  .row {
+    border: 2px solid green;
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
   }
 }
