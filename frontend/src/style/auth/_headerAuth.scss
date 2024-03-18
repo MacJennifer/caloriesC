@@ -1,5 +1,7 @@
 .containerHeaderAuth {
   max-width: 1000px;
+  margin-top: 3em;
+  border-radius: 10px;
   background-color: #002b5e;
 
   .containerTitle {
@@ -13,7 +15,26 @@
     .imgAdmin {
       max-width: 100%;
       height: auto;
-      border: 2px solid red;
+    }
+    h1 {
+      color: #ff914d;
+      font-size: 4em;
+      padding: 15px;
+    }
+  }
+
+  .textHeaderAuth {
+    color: #ff914d;
+    width: 100%;
+    margin: auto;
+    padding: 3em;
+    text-align: center;
+    span {
+      font-size: 1.5em;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 }

@@ -9,8 +9,8 @@ import { AiOutlineEye, AiTwotoneEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import "../../../style/auth.scss";
 import auth from "../../services/token";
+import TraitOrange from "../TraitOrange";
 import HeaderAuth from "./HeaderAuth";
-
 function LoginForm() {
   document.title = "Connexion au site";
 
@@ -50,12 +50,13 @@ function LoginForm() {
   return (
     <div className="containerLogin">
       <HeaderAuth />
-      <div className="formLogin">
-        <Card.Body>
-          <Card.Title className="titleLogin">Connexion</Card.Title>
+
+      <Card.Body>
+        <Card.Title className="titleLogin">CONNECTION</Card.Title>
+        <TraitOrange width="200px" height="2px" margin="14px auto 30px" />
+        <Form.Group className="formLogin">
           <Form onSubmit={handleSubmit(login)}>
             <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className="labelLogin">Adresse mail</Form.Label>
               <Controller
                 name="email"
                 control={control}
@@ -77,9 +78,7 @@ function LoginForm() {
                 )}
               />
             </Form.Group>
-
             <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className="labelLogin">Mot de passe</Form.Label>
               <InputGroup>
                 <InputGroup.Text onClick={handleClickShowPassword}>
                   {showPassword ? <AiOutlineEye /> : <AiTwotoneEyeInvisible />}
@@ -107,7 +106,7 @@ function LoginForm() {
               </InputGroup>
             </Form.Group>
 
-            <Button variant="dark" type="submit" className="w-100">
+            <Button type="submit" className="w-100 buttonLogin">
               Se connecter
             </Button>
             <div>
@@ -116,8 +115,8 @@ function LoginForm() {
               </Link>
             </div>
           </Form>
-        </Card.Body>
-      </div>
+        </Form.Group>
+      </Card.Body>
     </div>
   );
 }

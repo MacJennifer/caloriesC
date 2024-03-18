@@ -16,10 +16,11 @@ function HeaderAuth() {
             <h1>CaloriesC</h1>
           </div>
         </div>
-        <div>
+        <div className="textHeaderAuth">
           <span>
-            Compter vos nombres de calorie à la journée pour perdre du poids ou
-            simplement resterà un poids stable.
+            Compter vos nombres de calories à la journée
+            <br /> pour perdre du poids ou simplement rester à <br /> un poids
+            stable.
           </span>
         </div>
       </Nav>
