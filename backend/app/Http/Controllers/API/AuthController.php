@@ -74,13 +74,13 @@ class AuthController extends Controller
 
         // level activity
         switch ($activity) {
-            case 'active':
+            case 'actif':
                 $baseCalories *= 1.725;
                 break;
-            case 'peu active':
+            case 'peu actif':
                 $baseCalories *= 1.375;
                 break;
-            case 'pas active':
+            case 'pas actif':
                 $baseCalories *= 1.2;
                 break;
         }
@@ -100,7 +100,7 @@ class AuthController extends Controller
             'size' => 'required|integer|min:0|max:300',
             'weight' => 'required|numeric|between:45,200',
             'objective' => 'required|string|in:perte de poids,stabilite du poids',
-            'activity' => 'required|string|in:active,peu active,pas active',
+            'activity' => 'required|string|in:actif,peu actif,pas actif',
 
         ]);
         $caloriesPerDay = $this->calculCaloriesPerDay(
