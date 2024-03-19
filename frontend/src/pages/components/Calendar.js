@@ -1,22 +1,41 @@
-import moment from "moment";
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-
-const DateSelector = () => {
+import { FaCalendarAlt } from "react-icons/fa";
+const Calendar = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
 
-  return (
-    <div>
-      <p onClick={() => console.log("Ouverture du calendrier")}>
-        {moment(selectedDate).format("DD/MM/YYYY")}
-      </p>
-      <DatePicker
-        selected={selectedDate}
-        onChange={(date) => setSelectedDate(date)}
+  const CustomDatePickerInput = ({ value, onClick }) => (
+    <div className="containerInput">
+      <input
+        type="text"
+        value={value}
+        onClick={onClick}
+        readOnly
+        className="inputDateCalendar"
       />
+      <FaCalendarAlt
+        style={{ cursor: "pointer" }}
+        onClick={onClick}
+        className="iconCalendar"
+      />
+    </div>
+  );
+  return (
+    <div className="containerCalendar">
+      <div>
+        <span>Journal :</span>
+      </div>
+      <div className="inputCalendar">
+        <DatePicker
+          selected={selectedDate}
+          onChange={(date) => setSelectedDate(date)}
+          dateFormat="dd/MM/yyyy"
+          customInput={<CustomDatePickerInput />}
+        />
+      </div>
     </div>
   );
 };
 
-export default DateSelector;
+export default Calendar;
