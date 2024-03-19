@@ -9,7 +9,7 @@ class Integrate extends Model
 {
     use HasFactory;
     protected $table = 'integrate';
-    protected $fillable = ['food_id', 'meal_id', 'quantity'];
+    protected $fillable = ['food_id', 'meal_id', 'quantity', 'mealDate'];
 
     public function foods()
     {

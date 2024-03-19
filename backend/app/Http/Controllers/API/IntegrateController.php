@@ -25,10 +25,18 @@ class IntegrateController extends Controller
     {
         $request->validate([
             'quantity' => 'required|numeric|between:0,1000',
+            // 'mealsDate' => 'required|date',
 
         ]);
 
-        $integrate = Integrate::create($request->all());
+        $date = \Carbon\Carbon::createFromFormat('d/m/Y', $request->mealDate)->format('Y-m-d');
+
+        $integrate = Integrate::create([
+            'quantity' => $request->quantity,
+            'food_id' => $request->food_id,
+            'meal_id' => $request->meal_id,
+            'mealDate' => $date,
+        ]);
 
         return response()->json([
             'status' => 'Création d\'une quantité avec succès',
