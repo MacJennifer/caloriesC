@@ -1,0 +1,30 @@
+.containerHome {
+  max-width: 1200px;
+  margin: auto;
+}
+
+.containerHeaderHome {
+  height: auto;
+  background-color: #002b5e;
+  margin: auto;
+  display: flex;
+  justify-content: space-around;
+
+  .imgHome {
+    max-width: 75%;
+    height: 192px;
+    object-fit: cover;
+    // border: 2px solid red;
+    display: flex;
+    justify-content: center;
+  }
+  .titleHome {
+    // border: 2px solid green;
+    color: #ff914d;
+    font-size: 4em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+  }
+}
