@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Meal extends Model
 {
     use HasFactory;
-    protected $fillable = ['calories', 'user_id'];
+    protected $fillable = ['calories', 'quantity', 'mealDate', 'user_id', 'food_id'];
 
     public function integrate()
     {
-        return $this->belongsToMany(Integrate::class);
+        return $this->belongsToMany(Food::class);
     }
     public function users()
     {

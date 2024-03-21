@@ -13,7 +13,7 @@ class Food extends Model
 
     public function integrate()
     {
-        return $this->belongsToMany(Integrate::class);
+        return $this->belongsToMany(Meal::class);
     }
     public function conceive()
     {

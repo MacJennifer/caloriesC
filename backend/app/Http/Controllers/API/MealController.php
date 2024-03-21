@@ -24,10 +24,19 @@ class MealController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'calories' => 'required|integer',
+            'calories' => 'required|numeric',
+            'quantity' => 'required|numeric|between:0,1000',
         ]);
 
-        $meal = Meal::create($request->all());
+        $date = $request->filled('mealDate') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->mealDate)->format('Y-m-d') : now()->format('Y-m-d');
+
+        $meal = Meal::create([
+            'quantity' => $request->quantity,
+            'food_id' => $request->food_id,
+            'mealDate' => $date,
+            'calories' => $request->calories,
+            'user_id' => $request->user_id,
+        ]);
 
         return response()->json([
             'status' => 'Création d\'un repas avec succès',
@@ -50,6 +59,7 @@ class MealController extends Controller
     {
         $request->validate([
             'calories' => 'required|integer',
+            'quantity' => 'required|numeric|between:0,1000',
         ]);
 
         $meal->update($request->all());

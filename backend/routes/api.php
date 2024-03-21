@@ -40,7 +40,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 
 Route::apiResource("foods", FoodController::class);
-Route::apiResource("integrate", IntegrateController::class);
+
 Route::apiResource("meals", MealController::class);
 Route::apiResource("newspapers", NewspaperController::class);
 Route::apiResource("waterconsumption", WaterconsumptionController::class);

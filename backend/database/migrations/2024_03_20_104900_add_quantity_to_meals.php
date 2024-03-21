@@ -11,10 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('integrate', function (Blueprint $table) {
-            $table->id();
+        Schema::table('meals', function (Blueprint $table) {
             $table->decimal('quantity');
-            $table->timestamps();
         });
     }
 
@@ -23,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('integrate');
+        Schema::table('meals', function (Blueprint $table) {
+            //
+        });
     }
 };

@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('meals', function (Blueprint $table) {
             $table->id();
-            $table->integer('calories');
+            $table->integer('calories')->default(0);
             $table->timestamps();
         });
     }

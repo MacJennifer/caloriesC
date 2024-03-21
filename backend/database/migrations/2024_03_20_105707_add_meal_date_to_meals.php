@@ -11,11 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('integrate', function (Blueprint $table) {
-            $table->bigInteger('meal_id')->unsigned();
-            $table->foreign('meal_id')
-                ->references('id')
-                ->on('meals');
+        Schema::table('meals', function (Blueprint $table) {
+            $table->date('mealDate')->default(now());
         });
     }
 
@@ -24,7 +21,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('integrate', function (Blueprint $table) {
+        Schema::table('meals', function (Blueprint $table) {
             //
         });
     }
