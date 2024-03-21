@@ -13,6 +13,8 @@ import SportsAdmin from "./pages/admin/sports/SportsAdmin";
 import UsersAdmin from "./pages/admin/users/UsersAdmin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import AddMeal from "./pages/utilisateur/meals/AddMeal";
+
 function App() {
   return (
     <BrowserRouter>
@@ -20,8 +22,9 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/" element={<Login />} />
-        <Route path="*" element={<Login />} />
+        {/* <Route path="/" element={<Login />} />
+        <Route path="*" element={<Login />} /> */}
+        <Route path="/addMeal" element={<AddMeal />} />
 
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/contacts" element={<ContactsAdmin />} />
