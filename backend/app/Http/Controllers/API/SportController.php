@@ -29,7 +29,7 @@ class SportController extends Controller
         $request->validate([
             'nameSports' => 'required|max:100',
             'met' => 'required|numeric|between:0,20',
-            'duration' => 'required|integer',
+
 
         ]);
 
