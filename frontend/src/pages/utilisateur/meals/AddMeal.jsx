@@ -1,5 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
@@ -12,6 +14,28 @@ const AddMeal = () => {
   const [food_id, setFoodId] = useState("");
   const [foods, setFoods] = useState([]);
   const [calories, setCalories] = useState(0);
+  const { typeMeal } = useParams();
+
+  useEffect(() => {
+    const saveMealType = async () => {
+      try {
+        console.log("Type de repas reçu en tant que paramètre :", typeMeal); // Ajoutez ce console.log pour voir le type de repas récupéré
+        // Enregistrer le type de repas dans la base de données
+        await axios.post(`http://127.0.0.1:8000/api/meals`, {
+          typeMeals: typeMeal,
+        });
+        console.log("Type de repas enregistré :", typeMeal);
+        // Faire quelque chose après l'enregistrement, si nécessaire
+      } catch (error) {
+        console.error(
+          "Erreur lors de l'enregistrement du type de repas :",
+          error
+        );
+      }
+    };
+
+    saveMealType(); // Appel de la fonction d'enregistrement une fois que le composant est monté
+  }, [typeMeal]);
 
   const handleChange = (event) => {
     setFoodId(event.target.value);
@@ -74,6 +98,7 @@ const AddMeal = () => {
     formData.append("quantity", quantity);
     formData.append("calories", calories);
     formData.append("food_id", food_id);
+    formData.append("typeMeals", typeMeal);
 
     // Obtenir l'id de l'utilisateur à partir des données de l'aliment
     const selectedFood = foods.find((food) => food.id === parseInt(food_id));

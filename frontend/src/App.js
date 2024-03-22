@@ -24,7 +24,7 @@ function App() {
         <Route path="/register" element={<Register />} />
         {/* <Route path="/" element={<Login />} />
         <Route path="*" element={<Login />} /> */}
-        <Route path="/addMeal" element={<AddMeal />} />
+        <Route path="/addMeal/:typeMeal" element={<AddMeal />} />
 
         <Route path="/admin" element={<Admin />} />
         <Route path="/admin/contacts" element={<ContactsAdmin />} />

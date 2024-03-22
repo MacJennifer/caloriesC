@@ -1,0 +1,127 @@
+.titleMeals {
+  font-size: 1.8em;
+  text-align: center;
+  font-weight: bold;
+  color: #002b5e;
+  background-color: #d9d9d9;
+  margin-bottom: 30px;
+  padding: 7px 0;
+}
+
+.meals {
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: auto;
+  // border: 2px solid red;
+
+  .breakfast {
+    width: 100%;
+    height: auto;
+    margin: 20px auto;
+    // border: 2px solid green;
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      h3 {
+        color: #002b5e;
+        font-weight: 500;
+      }
+    }
+    .mealBreakfast {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-right: 20px;
+      }
+    }
+  }
+  .lunch {
+    width: 100%;
+    height: auto;
+    margin: 20px auto;
+    // border: 2px solid green;
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      h3 {
+        color: #002b5e;
+        font-weight: 500;
+      }
+    }
+    .mealLunch {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-right: 20px;
+      }
+    }
+  }
+  .dinner {
+    width: 100%;
+    height: auto;
+    margin: 20px auto;
+    // border: 2px solid green;
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      h3 {
+        color: #002b5e;
+        font-weight: 500;
+      }
+    }
+    .mealDinner {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-right: 20px;
+      }
+    }
+  }
+  .snack {
+    width: 100%;
+    height: auto;
+    margin: 20px auto;
+    // border: 2px solid green;
+    text-align: center;
+
+    a {
+      text-decoration: none;
+      color: inherit;
+
+      h3 {
+        color: #002b5e;
+        font-weight: 500;
+      }
+    }
+    .mealSnack {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      p {
+        margin-right: 20px;
+      }
+    }
+  }
+}

@@ -1,9 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa";
-const Calendar = () => {
+
+const Calendar = ({ onDateChange }) => {
   const [selectedDate, setSelectedDate] = useState(new Date());
+
+  useEffect(() => {
+    // Set the selected date to today when the component mounts
+    setSelectedDate(new Date());
+  }, []);
 
   const CustomDatePickerInput = ({ value, onClick }) => (
     <div className="containerInput">
@@ -21,6 +27,12 @@ const Calendar = () => {
       />
     </div>
   );
+
+  const handleDateChange = (date) => {
+    setSelectedDate(date);
+    onDateChange(date); // Appel de la fonction de rappel avec la nouvelle date
+  };
+
   return (
     <div className="containerCalendar">
       <div>
@@ -29,7 +41,7 @@ const Calendar = () => {
       <div className="inputCalendar">
         <DatePicker
           selected={selectedDate}
-          onChange={(date) => setSelectedDate(date)}
+          onChange={handleDateChange}
           dateFormat="dd/MM/yyyy"
           customInput={<CustomDatePickerInput />}
         />

@@ -19,10 +19,6 @@ function Navigation() {
         <TraitOrange width="158px" height="2px" margin="10px 0" />
       </div>
       <div>
-        <Link to="/steps">Pas réalisés</Link>
-        <TraitOrange width="110px" height="2px" margin="10px 0" />
-      </div>
-      <div>
         <Link to="/contacts">Contact</Link>
         <TraitOrange width="78px" height="2px" margin="10px 0" />
       </div>
