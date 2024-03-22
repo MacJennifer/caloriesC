@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Meal extends Model
 {
     use HasFactory;
-    protected $fillable = ['calories', 'quantity', 'mealDate', 'user_id', 'food_id'];
+    protected $fillable = ['calories', 'quantity', 'mealDate', 'typeMeals', 'user_id', 'food_id'];
 
     public function integrate()
     {

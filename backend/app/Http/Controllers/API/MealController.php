@@ -26,6 +26,7 @@ class MealController extends Controller
         $request->validate([
             'calories' => 'required|numeric',
             'quantity' => 'required|numeric|between:0,1000',
+            'typeMeals' => 'required|string|in:petitdejeuner,dejeuner,diner,encas',
         ]);
 
         $date = $request->filled('mealDate') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->mealDate)->format('Y-m-d') : now()->format('Y-m-d');
@@ -36,6 +37,7 @@ class MealController extends Controller
             'mealDate' => $date,
             'calories' => $request->calories,
             'user_id' => $request->user_id,
+            'typeMeals' => $request->typeMeals,
         ]);
 
         return response()->json([
