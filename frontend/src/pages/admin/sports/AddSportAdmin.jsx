@@ -18,24 +18,17 @@ const AddSportAdmin = () => {
     e.preventDefault();
 
     const formData = new FormData();
-
     formData.append("nameSports", nameSports);
     formData.append("met", met);
 
     try {
-      // Récupérer le token JWT de l'utilisateur connecté
       const token = auth.getToken();
-
-      // Vérifier si l'utilisateur est connecté
       if (!token) {
-        // Gérer le cas où l'utilisateur n'est pas connecté
         console.log("L'utilisateur n'est pas connecté.");
-        // Rediriger l'utilisateur vers la page de connexion
         navigate("/login");
         return;
       }
 
-      // Configurer les en-têtes de la requête avec le token JWT
       const config = {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -43,14 +36,16 @@ const AddSportAdmin = () => {
         },
       };
 
-      //Creation d'un nouvel aliment
+      console.log("Avant la requête axios"); // Ajouter ce console.log pour vérifier si la requête est bien exécutée
+
       await axios.post(`http://127.0.0.1:8000/api/sports`, formData, config);
-      //création validé on retour à la page sports
+
+      console.log("Requête axios réussie"); // Ajouter ce console.log pour vérifier si la requête s'est bien terminée
+
       navigate("/admin/sports");
     } catch (error) {
-      // Si une erreur
-      console.log(error.response);
-      if (error.response.status === 422) {
+      console.log("Erreur lors de la requête axios : ", error); // Ajouter ce console.log pour afficher les détails de l'erreur
+      if (error.response && error.response.status === 422) {
         setValidationError(error.response.data.errors);
       }
     }

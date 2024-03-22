@@ -7,7 +7,6 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import TraitOrange from "./components/TraitOrange";
-
 const Home = () => {
   const [meals, setMeals] = useState([]);
   const [filteredMeals, setFilteredMeals] = useState([]);
@@ -15,7 +14,7 @@ const Home = () => {
   const [lunchMeals, setLunchMeals] = useState([]);
   const [dinnerMeals, setDinnerMeals] = useState([]);
   const [snackMeals, setSnackMeals] = useState([]);
-  const [selectedDate, setSelectedDate] = useState(new Date()); // Ajouter un état pour stocker la date sélectionnée
+  const [selectedDate, setSelectedDate] = useState(new Date());
 
   useEffect(() => {
     const fetchMeals = async () => {
@@ -110,8 +109,8 @@ const Home = () => {
           {lunchMeals.map((meal) => (
             <div key={meal.id} className="mealLunch">
               <p>{meal.food ? meal.food.nameFoods : "N/A"}</p>
-              <p>{meal.quantity}</p>
-              <p>{meal.calories}</p>
+              <p>{meal.quantity} gr</p>
+              <p>{meal.calories} calories</p>
             </div>
           ))}
         </div>
@@ -123,8 +122,8 @@ const Home = () => {
           {snackMeals.map((meal) => (
             <div key={meal.id} className="mealSnack">
               <p>{meal.food ? meal.food.nameFoods : "N/A"}</p>
-              <p>{meal.quantity}</p>
-              <p>{meal.calories}</p>
+              <p>{meal.quantity} gr</p>
+              <p>{meal.calories} calories</p>
             </div>
           ))}
         </div>
@@ -136,12 +135,13 @@ const Home = () => {
           {dinnerMeals.map((meal) => (
             <div key={meal.id} className="mealDinner">
               <p>{meal.food ? meal.food.nameFoods : "N/A"}</p>
-              <p>{meal.quantity}</p>
-              <p>{meal.calories}</p>
+              <p>{meal.quantity} gr</p>
+              <p>{meal.calories} calories</p>
             </div>
           ))}
         </div>
       </div>
+      <Card.Title className="titleActivity">Activité Physique</Card.Title>
       <Footer />
     </div>
   );
