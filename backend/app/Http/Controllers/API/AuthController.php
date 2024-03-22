@@ -125,7 +125,7 @@ class AuthController extends Controller
             'caloriesPerDay' => $caloriesPerDay,
             'role_id' => 1,
         ]);
-
+        dd($user);
         return response()->json([
             'message' => 'Enregistrement reussi',
             'user' => $user

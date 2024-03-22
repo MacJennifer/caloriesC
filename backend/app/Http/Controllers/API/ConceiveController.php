@@ -6,6 +6,7 @@ use App\Models\Conceive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ConceiveController extends Controller
 {
@@ -25,6 +26,7 @@ class ConceiveController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'portion' => 'required|integer',
         ]);

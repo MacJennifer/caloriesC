@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Meal;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class MealController extends Controller
 {
@@ -23,6 +24,7 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'calories' => 'required|numeric',
             'quantity' => 'required|numeric|between:0,1000',

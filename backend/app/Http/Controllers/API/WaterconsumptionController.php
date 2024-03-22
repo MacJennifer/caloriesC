@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
-use App\Models\Waterconsumption;
 use Illuminate\Http\Request;
+use App\Models\Waterconsumption;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class WaterconsumptionController extends Controller
 {
@@ -23,6 +24,7 @@ class WaterconsumptionController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'glassWater' => 'required|numeric|between:0,20',
         ]);

@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Http\Controllers\Controller;
 use App\Models\Contact;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class ContactController extends Controller
 {
@@ -23,6 +24,7 @@ class ContactController extends Controller
      */
     public function store(Request $request)
     {
+        $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'lastname' => 'required|max:160',
             'firstname' => 'required|max:160',

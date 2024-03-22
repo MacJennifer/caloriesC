@@ -24,17 +24,22 @@ class SportController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'nameSports' => 'required|max:100',
             'met' => 'required|numeric|between:0,20',
+            'duration' => 'required|integer',
 
         ]);
 
-        $sport = SPORT::create($request->all());
+        $sport = new SPORT();
+        $sport->fill($request->all());
+        $sport->duration = 0; // Définir la durée par défaut à 0
+        $sport->save();
 
         return response()->json([
-            'status' => 'Création d\'aliment avec succès',
+            'status' => 'Création d\'un avec succès',
             'data' => $sport,
         ]);
     }
