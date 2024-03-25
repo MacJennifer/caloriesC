@@ -74,4 +74,8 @@ class User extends Authenticatable implements JWTSubject
     {
         return $this->role_id == 2;
     }
+    public function sports()
+    {
+        return $this->belongsToMany(Sport::class)->withPivot('duration', 'userActivityDate');
+    }
 }

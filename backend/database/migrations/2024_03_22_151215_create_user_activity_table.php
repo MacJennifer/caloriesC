@@ -11,10 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sports', function (Blueprint $table) {
+        Schema::create('useractivity', function (Blueprint $table) {
             $table->id();
-            $table->string('nameSports');
-            $table->decimal('met');
+            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('sport_id')->constrained()->onDelete('cascade');
+            $table->integer('duration');
+            $table->date('userActivityDate');
             $table->timestamps();
         });
     }
@@ -24,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::dropIfExists('user_activity');
     }
 };

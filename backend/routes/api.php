@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
@@ -13,6 +14,7 @@ use App\Http\Controllers\API\ContactController;
 use App\Http\Controllers\API\ConceiveController;
 use App\Http\Controllers\API\IntegrateController;
 use App\Http\Controllers\API\NewspaperController;
+use App\Http\Controllers\API\UserActivityController;
 use App\Http\Controllers\API\WaterconsumptionController;
 
 /*
@@ -49,7 +51,7 @@ Route::apiResource("roles", RoleController::class);
 Route::apiResource("contacts", ContactController::class);
 Route::apiResource("recipes", RecipeController::class);
 Route::apiResource("conceive", ConceiveController::class);
-
+Route::apiResource("useractivity", UserActivityController::class);
 
 
 Route::middleware('auth:api')->group(function () {

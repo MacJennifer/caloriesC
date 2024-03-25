@@ -2,21 +2,21 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Models\Meal;
+use App\Models\UserActivity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
-class MealController extends Controller
+class UserActivityController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $meals = Meal::all();
+        $userActivity = UserActivity::all();
 
-        return response()->json($meals);
+        return response()->json($userActivity);
     }
 
     /**
@@ -26,47 +26,43 @@ class MealController extends Controller
     {
         // $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
-            'calories' => 'required|numeric',
-            'quantity' => 'required|numeric|between:0,1000',
-            'typeMeals' => 'required|string|in:breakfast,lunch,dinner,snack',
+            'duration' => 'required|max:3',
+
         ]);
-
         $date = $request->filled('mealDate') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->mealDate)->format('Y-m-d') : now()->format('Y-m-d');
-
-        $meal = Meal::create([
-            'quantity' => $request->quantity,
-            'food_id' => $request->food_id,
-            'mealDate' => $date,
-            'calories' => $request->calories,
+        $userActivity = UserActivity::create([
+            'duration' => $request->duration,
+            'userActivityDate' => $date,
             'user_id' => $request->user_id,
-            'typeMeals' => $request->typeMeals,
+            'sport_id' => $request->sport_id,
+
         ]);
 
         return response()->json([
-            'status' => 'Création d\'un repas avec succès',
-            'data' => $meal,
+            'status' => 'Création d\'un avec succès',
+            'data' => $userActivity,
         ]);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Meal $meal)
+    public function show(UserActivity $userActivity)
     {
-        return response()->json($meal);
+        return response()->json($userActivity);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Meal $meal)
+    public function update(Request $request, UserActivity $userActivity)
     {
         $request->validate([
-            'calories' => 'required|integer',
-            'quantity' => 'required|numeric|between:0,1000',
+            'duration' => 'required|integer',
+
         ]);
 
-        $meal->update($request->all());
+        $userActivity->update($request->all());
 
         return response()->json([
             'status' => 'Mise à jour du repas avec succès',
@@ -76,9 +72,9 @@ class MealController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Meal $meal)
+    public function destroy(UserActivity $userActivity)
     {
-        $meal->delete();
+        $userActivity->delete();
 
         return response()->json([
             'status' => 'Supprimé avec succès'

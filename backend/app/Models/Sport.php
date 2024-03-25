@@ -8,10 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class Sport extends Model
 {
     use HasFactory;
-    protected $fillable = ['nameSports', 'met', 'duration', 'user_id'];
+    protected $fillable = ['nameSports', 'met', 'duration'];
 
     public function users()
     {
-        return $this->hasMany(User::class);
+        return $this->belongsToMany(User::class)->withPivot('duration', 'date');
     }
 }
