@@ -28,6 +28,7 @@ class UserActivityController extends Controller
         $request->validate([
             'duration' => 'required|max:3',
 
+
         ]);
         $date = $request->filled('mealDate') ? \Carbon\Carbon::createFromFormat('d/m/Y', $request->mealDate)->format('Y-m-d') : now()->format('Y-m-d');
         $userActivity = UserActivity::create([
@@ -35,6 +36,7 @@ class UserActivityController extends Controller
             'userActivityDate' => $date,
             'user_id' => $request->user_id,
             'sport_id' => $request->sport_id,
+            'caloriesburned' => $request->caloriesburned,
 
         ]);
 

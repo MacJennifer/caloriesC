@@ -9,7 +9,7 @@ class UserActivity extends Model
 {
     use HasFactory;
     protected $table = 'userActivity';
-    protected $fillable = ['duration', 'userActivityDate', 'user_id', 'sport_id'];
+    protected $fillable = ['duration', 'userActivityDate', 'caloriesburned', 'user_id', 'sport_id'];
 
 
     public function users()
