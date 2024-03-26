@@ -12,6 +12,10 @@ class Sport extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('duration', 'date');
+        return $this->belongsToMany(User::class);
+    }
+    public function userActivity()
+    {
+        return $this->belongsToMany(UserActivity::class);
     }
 }
