@@ -21,6 +21,7 @@ const Home = () => {
   const [selectedSport, setSelectedSport] = useState("");
   const [duration, setDuration] = useState("");
   const [calculatedResult, setCalculatedResult] = useState(0);
+  const [userActivity, setUserActivity] = useState([]);
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -30,7 +31,7 @@ const Home = () => {
         }
 
         const userId = auth.getDecodedToken().sub; // Récupérer l'ID de l'utilisateur connecté
-        console.log(userId);
+
         const mealsResponse = await axios.get(
           `http://127.0.0.1:8000/api/meals?userId=${userId}`
         );
@@ -179,6 +180,18 @@ const Home = () => {
           "Activité physique enregistrée avec succès :",
           response.data
         );
+        console.log(response.data);
+        setUserActivity([
+          ...userActivity,
+          {
+            ...response.data,
+            duration: duration,
+            caloriesburned: calculatedResult,
+            sport: selectedSport,
+          },
+        ]);
+        setSelectedSport("");
+        setDuration("");
       })
       .catch((error) => {
         console.error(
@@ -259,12 +272,12 @@ const Home = () => {
         </div>
       </div>
       <Card.Title className="titleActivity">Activité Physique</Card.Title>
-      <form onSubmit={handleSubmit}>
-        <div className="form-group">
+      <form onSubmit={handleSubmit} className="userActivity">
+        <div className="sport">
           <label htmlFor="sportSelect">Sport :</label>
           <select
             id="sportSelect"
-            className="form-control"
+            className="selectSports"
             value={selectedSport}
             onChange={handleSportChange}
           >
@@ -277,23 +290,38 @@ const Home = () => {
             ))}
           </select>
         </div>
-        <div className="form-group">
+        <div className="duration">
           <label htmlFor="durationInput">Durée (en minutes) :</label>
           <input
             type="number"
             id="durationInput"
-            className="form-control"
+            className="inputDuration"
             value={duration}
             onChange={handleDurationChange}
           />
         </div>
-        <div>
-          <p>Calories brûlées : {calculatedResult}</p>
-        </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn">
           Valider
         </button>
       </form>
+      <div className="totalUserActivity">
+        {userActivity.map((activity, index) => {
+          // Convertir activity.sport_id en nombre
+          const sportId = parseInt(activity.sport, 10);
+
+          // Recherchez le sport dans le tableau `sports` en comparant les IDs
+          const sport = sports.find((sport) => sport.id === sportId);
+          console.log("Sport trouvé :", sport.nameSports);
+          return (
+            <div className="sportActivity">
+              <p>{sport ? sport.nameSports : "Sport inconnu"}</p>
+              <p>{activity.duration} minutes</p>
+
+              <p>{activity.caloriesburned} Calories brûlées</p>
+            </div>
+          );
+        })}
+      </div>
       <Footer />
     </div>
   );
