@@ -98,63 +98,47 @@ const Home = () => {
   ////////////////////////SPORT
   const handleSportChange = (event) => {
     setSelectedSport(event.target.value);
+
+    if (duration && event.target.value) {
+      calculateAndSetResult(event.target.value, duration);
+    }
   };
+
   const handleDurationChange = (event) => {
-    setDuration(event.target.value);
-  };
+    const durationValue = event.target.value;
+    setDuration(durationValue);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    const token = auth.getToken();
-    if (!token) {
-      // Gérer le cas où l'utilisateur n'est pas connecté
-      console.log("L'utilisateur n'est pas connecté.");
-      // Rediriger l'utilisateur vers la page de connexion
-      navigate("/login");
+    // durée vide mettre à jour les calories brûlées à 0
+    if (!durationValue || durationValue === "") {
+      setCalculatedResult(0);
       return;
     }
 
+    // durée et le sport sélectionnés, calculer et mettre à jour les calories brûlées
+    if (selectedSport && durationValue) {
+      calculateAndSetResult(selectedSport, durationValue);
+    }
+  };
+
+  const calculateResult = (weight, met, duration) => {
+    return weight * met * duration;
+  };
+  const calculateAndSetResult = (sport, duration) => {
     const userId = auth.getDecodedToken().sub;
 
-    // Récupérer le poids de l'utilisateur depuis l'API
     axios
       .get(`http://127.0.0.1:8000/api/users/${userId}`)
       .then((response) => {
-        console.log("Réponse de l'API :", response);
         const weight = response.data.user.weight;
-        console.log(weight);
-        // Récupérer le MET du sport sélectionné depuis l'API
+
         axios
-          .get(`http://127.0.0.1:8000/api/sports/${selectedSport}`)
+          .get(`http://127.0.0.1:8000/api/sports/${sport}`)
           .then((sportResponse) => {
             const met = sportResponse.data.met;
 
-            // Calculer le résultat
-            const result = weight * met * duration;
-            console.log(weight, met, duration);
-            console.log(result);
+            // Calculer le résultat en utilisant la fonction calculateResult
+            const result = calculateResult(weight, met, duration);
             setCalculatedResult(result);
-            // Envoi des données au backend Laravel
-            axios
-              .post("http://127.0.0.1:8000/api/useractivity", {
-                user_id: userId,
-                sport_id: selectedSport,
-                duration: duration,
-                caloriesburned: calculatedResult,
-              })
-              .then((response) => {
-                console.log(
-                  "Activité physique enregistrée avec succès :",
-                  response.data
-                );
-              })
-              .catch((error) => {
-                console.error(
-                  "Erreur lors de l'enregistrement de l'activité physique :",
-                  error
-                );
-              });
           })
           .catch((error) => {
             console.error(
@@ -166,6 +150,39 @@ const Home = () => {
       .catch((error) => {
         console.error(
           "Erreur lors de la récupération du poids de l'utilisateur :",
+          error
+        );
+      });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    const token = auth.getToken();
+    if (!token) {
+      console.log("L'utilisateur n'est pas connecté.");
+      navigate("/login");
+      return;
+    }
+
+    const userId = auth.getDecodedToken().sub;
+
+    axios
+      .post("http://127.0.0.1:8000/api/useractivity", {
+        user_id: userId,
+        sport_id: selectedSport,
+        duration: duration,
+        caloriesburned: calculatedResult,
+      })
+      .then((response) => {
+        console.log(
+          "Activité physique enregistrée avec succès :",
+          response.data
+        );
+      })
+      .catch((error) => {
+        console.error(
+          "Erreur lors de l'enregistrement de l'activité physique :",
           error
         );
       });
