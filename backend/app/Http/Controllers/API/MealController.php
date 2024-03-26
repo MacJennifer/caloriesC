@@ -24,7 +24,7 @@ class MealController extends Controller
      */
     public function store(Request $request)
     {
-        $request->merge(['user_id' => Auth::user()->id]);
+        // $request->merge(['user_id' => Auth::user()->id]);
         $request->validate([
             'calories' => 'required|numeric',
             'quantity' => 'required|numeric|between:0,1000',
