@@ -74,8 +74,9 @@ class UserActivityController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(UserActivity $userActivity)
+    public function destroy($id)
     {
+        $userActivity = UserActivity::findOrFail($id);
         $userActivity->delete();
 
         return response()->json([
