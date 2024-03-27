@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
+import { FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../pages/services/token";
 import Calendar from "./components/Calendar";
@@ -8,6 +9,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import TraitOrange from "./components/TraitOrange";
+import ButtonEdit from "./components/buttons/ButtonEdit";
 const Home = () => {
   const navigate = useNavigate();
   const [meals, setMeals] = useState([]);
@@ -22,6 +24,8 @@ const Home = () => {
   const [duration, setDuration] = useState("");
   const [calculatedResult, setCalculatedResult] = useState(0);
   const [userActivity, setUserActivity] = useState([]);
+  const [filteredUserActivity, setFilteredUserActivity] = useState([]);
+
   useEffect(() => {
     const fetchMeals = async () => {
       try {
@@ -124,6 +128,7 @@ const Home = () => {
   const calculateResult = (weight, met, duration) => {
     return weight * met * duration;
   };
+
   const calculateAndSetResult = (sport, duration) => {
     const userId = auth.getDecodedToken().sub;
 
@@ -155,7 +160,51 @@ const Home = () => {
         );
       });
   };
+  ///////////////////////////////// Charge de l'activité enregistré pour l'afficher sur la page meme après recharge de la page ////////////////////////////////////////////////////
+  useEffect(() => {
+    // Charger les données d'activité physique à partir de l'API
+    const fetchUserActivity = async () => {
+      try {
+        const userId = auth.getDecodedToken().sub;
+        const response = await axios.get(
+          `http://127.0.0.1:8000/api/useractivity?user_id=${userId}`
+        );
+        setUserActivity(response.data);
+      } catch (error) {
+        console.error(
+          "Erreur lors de la récupération des données d'activité physique :",
+          error
+        );
+      }
+    };
 
+    fetchUserActivity();
+  }, []);
+
+  ////////////////////////////////// Filtre des dates pour afficher les activitées selon les dates ////////////////////////////////////
+  useEffect(() => {
+    // Filtrer les activités d'utilisateur en fonction de la date sélectionnée
+    const filtered = userActivity.filter((activity) => {
+      const activityDate = new Date(activity.userActivityDate);
+      return activityDate.toDateString() === selectedDate.toDateString();
+    });
+    setFilteredUserActivity(filtered);
+  }, [userActivity, selectedDate]);
+  /////////////////////////////////// SUPPRESSION DE L'ACTIVITE /////////////////////////////////////////////
+  const handleDeleteActivity = async (activityId) => {
+    try {
+      await axios.delete(
+        `http://localhost:8000/api/useractivity/${activityId}`
+      );
+      // Supprimer l'activité de l'état local
+      setUserActivity(
+        userActivity.filter((activity) => activity.id !== activityId)
+      );
+    } catch (error) {
+      console.error("Erreur lors de la suppression de l'activité :", error);
+    }
+  };
+  ///////////////////////////////////////////////////////////////////////////////////
   const handleSubmit = (event) => {
     event.preventDefault();
 
@@ -180,7 +229,8 @@ const Home = () => {
           "Activité physique enregistrée avec succès :",
           response.data
         );
-        console.log(response.data);
+
+        // console.log(response.data);
         setUserActivity([
           ...userActivity,
           {
@@ -190,8 +240,11 @@ const Home = () => {
             sport: selectedSport,
           },
         ]);
+
         setSelectedSport("");
         setDuration("");
+
+        // window.location.reload();
       })
       .catch((error) => {
         console.error(
@@ -211,6 +264,7 @@ const Home = () => {
         console.error("Erreur lors de la récupération des sports :", error);
       });
   }, []);
+
   return (
     <div className="containerHome">
       <Header />
@@ -303,25 +357,33 @@ const Home = () => {
         <button type="submit" className="btn">
           Valider
         </button>
+        <div className="totalUserActivity">
+          {filteredUserActivity.map((activity, index) => {
+            // Convertir activity.sport_id en nombre
+            // console.log(activity);
+            const sportId = parseInt(activity.sport_id, 10);
+            // console.log(sportId);
+            // Recherchez le sport dans le tableau `sports` en comparant les id
+            const sport = sports.find((sport) => sport.id === sportId);
+            // console.log(sport);
+            return (
+              <div className="sportActivity" key={index}>
+                <p>{sport ? sport.nameSports : "Sport inconnu"}</p>
+                <p>{activity.duration} minutes</p>
+                <p>{activity.caloriesburned} Calories brûlées</p>
+                {/* <Link to={`/editUseractivity/${useractivityId}`}>
+                 */}
+                <ButtonEdit go={`/editUseractivity/${activity.id}`} />
+                <FaTrash
+                  className="deleteIcon"
+                  onClick={() => handleDeleteActivity(activity.id)}
+                />
+              </div>
+            );
+          })}
+        </div>
       </form>
-      <div className="totalUserActivity">
-        {userActivity.map((activity, index) => {
-          // Convertir activity.sport_id en nombre
-          const sportId = parseInt(activity.sport, 10);
 
-          // Recherchez le sport dans le tableau `sports` en comparant les IDs
-          const sport = sports.find((sport) => sport.id === sportId);
-          console.log("Sport trouvé :", sport.nameSports);
-          return (
-            <div className="sportActivity">
-              <p>{sport ? sport.nameSports : "Sport inconnu"}</p>
-              <p>{activity.duration} minutes</p>
-
-              <p>{activity.caloriesburned} Calories brûlées</p>
-            </div>
-          );
-        })}
-      </div>
       <Footer />
     </div>
   );
