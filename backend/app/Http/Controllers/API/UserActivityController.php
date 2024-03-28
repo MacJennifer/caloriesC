@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Ramsey\Uuid\Type\Integer;
 
 class UserActivityController extends Controller
 {
@@ -64,16 +65,21 @@ class UserActivityController extends Controller
     public function update(Request $request, $id)
     {
         // Récupérez l'activité utilisateur avec l'ID spécifié
-        $useractivity = UserActivity::findOrFail($id);
-        // $duration = $request->has('duration') ? $request->duration : 0;
-        // Mettez à jour uniquement le champ 'duration'
-        $useractivity->update([
+        $userActivity = UserActivity::findOrFail($id);
+
+        $request->validate([
+            'duration' => 'required|max:3',
+
+        ]);
+
+        $userActivity->update([
             'duration' => $request->duration,
             'caloriesburned' => $request->caloriesburned,
             'sport_id' => $request->sport_id,
         ]);
 
-        // Retournez une réponse JSON indiquant que la mise à jour a réussi
+
+
         return response()->json([
             'status' => 'Mise à jour de l\'activité physique avec succès',
         ]);

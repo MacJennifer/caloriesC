@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('useractivity', function (Blueprint $table) {
-            $table->decimal('caloriesburned', 10, 2)->nullable()->after('duration');
+            $table->decimal('caloriesburned', 10, 2)->default(0)->after('duration');
         });
     }
 
