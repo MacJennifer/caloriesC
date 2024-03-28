@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Card from "react-bootstrap/Card";
-import { FaTrash } from "react-icons/fa";
+import { FaEdit, FaTrash } from "react-icons/fa";
 import { Link, useNavigate } from "react-router-dom";
 import auth from "../pages/services/token";
 import Calendar from "./components/Calendar";
@@ -9,7 +9,7 @@ import Footer from "./components/Footer";
 import Header from "./components/Header";
 import Navigation from "./components/Navigation";
 import TraitOrange from "./components/TraitOrange";
-import ButtonEdit from "./components/buttons/ButtonEdit";
+// import ButtonEdit from "./components/buttons/ButtonEdit";
 const Home = () => {
   const navigate = useNavigate();
   const [meals, setMeals] = useState([]);
@@ -371,9 +371,11 @@ const Home = () => {
                 <p>{sport ? sport.nameSports : "Sport inconnu"}</p>
                 <p>{activity.duration} minutes</p>
                 <p>{activity.caloriesburned} Calories brûlées</p>
-                {/* <Link to={`/editUseractivity/${useractivityId}`}>
-                 */}
-                <ButtonEdit go={`/editUseractivity/${activity.id}`} />
+
+                {/* <ButtonEdit go={`/editUserActivity/${activity.id}`} /> */}
+                <Link to={`/editUserActivity/${activity.id}`}>
+                  <FaEdit className="editIcon" />
+                </Link>
                 <FaTrash
                   className="deleteIcon"
                   onClick={() => handleDeleteActivity(activity.id)}

@@ -14,7 +14,7 @@ import UsersAdmin from "./pages/admin/users/UsersAdmin";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import AddMeal from "./pages/utilisateur/meals/AddMeal";
-import EditUseractivity from "./pages/utilisateur/useractivity/EditUseractivity";
+import EditUserActivity from "./pages/utilisateur/userActivity/EditUserActivity";
 function App() {
   return (
     <BrowserRouter>
@@ -26,8 +26,8 @@ function App() {
         <Route path="*" element={<Login />} />
         <Route path="/addMeal/:typeMeal" element={<AddMeal />} />
         <Route
-          path="/editUseractivity/:useractivityId"
-          element={<EditUseractivity />}
+          path="/editUserActivity/:userActivityId"
+          element={<EditUserActivity />}
         />
 
         <Route path="/admin" element={<Admin />} />
