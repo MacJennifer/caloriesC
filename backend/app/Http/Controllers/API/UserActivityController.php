@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Models\UserActivity;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
@@ -49,25 +50,32 @@ class UserActivityController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(UserActivity $userActivity)
+    public function show($id)
     {
-        return response()->json($userActivity);
+        $useractivity = DB::table('useractivity')
+            ->where('id', '=', $id)
+            ->get();
+        return response()->json($useractivity);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, UserActivity $userActivity)
+    public function update(Request $request, $id)
     {
-        $request->validate([
-            'duration' => 'required|integer',
-
+        // Récupérez l'activité utilisateur avec l'ID spécifié
+        $useractivity = UserActivity::findOrFail($id);
+        // $duration = $request->has('duration') ? $request->duration : 0;
+        // Mettez à jour uniquement le champ 'duration'
+        $useractivity->update([
+            'duration' => $request->duration,
+            'caloriesburned' => $request->caloriesburned,
+            'sport_id' => $request->sport_id,
         ]);
 
-        $userActivity->update($request->all());
-
+        // Retournez une réponse JSON indiquant que la mise à jour a réussi
         return response()->json([
-            'status' => 'Mise à jour du repas avec succès',
+            'status' => 'Mise à jour de l\'activité physique avec succès',
         ]);
     }
 
